@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<!--CSS STYLING -->
+<style>
+body {background-color: #cccccc; background-image: url("https://www.onlinebooksreview.com/uploads/blog_images/2017/09/25_neuralnet.jpg");}
+h1   {color: white; position: absolute; right: 750px; top: 50px;}
+p    {color: white; position: absolute; right: 700px;top: 100px;}
+.Output {
+	position: absolute;
+	top: 300px;
+    right: 450px;
+    background-color: white;
+    width: 700px;
+    height:380px;
+    
+    padding: 25px;
+    margin: 25px;
+}
+.speech { width: 500px; height: 40px; padding: 0; margin: 0; text-align: center; position:relative; position: absolute;
+	top: 100px;
+    right: 250px;}
+.speech input {border: 0; width: 700px; height: 50px; display: inline-block; height: 30px;position: absolute; font-size: 18px;
+	top: 100px;
+    right: 250px;}
+.speech img {float: right; width: 35px; position: absolute;
+	top: 100px;
+    right: 250px;}
+.button {
+    background-color:   #20B2AA;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: absolute;
+    top: 200px;
+    right: 400px;
+}
+
+
+</style>
+<!--HTML CODING -->
+
+<body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    
+window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+const synth = window.speechSynthesis;
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+var answer = "";
+var question = "";
+
+//The function to submit question to the python neural network model
+function submit_buttion(){
+    //set the question string to be the input box
+    question = document.getElementById('input_text').value;
+    //send the input text to python
+    $.post( "/postmethod", {
+    javascript_data: question 
+        });
+
+    $.get("/getmethod", function(data) {
+    //Set the output text to be the python answer that was passed by from the back-end
+    document.getElementById('output_text').value = $.parseJSON(data);
+                                });
+}
+ 
+//speech recognition model
+function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      //Start recognition process
+      recognition.start();
+      
+      recognition.onresult = function(event) {
+        //Set result to a constant
+        const speechToText = event.results[0][0].transcript;
+        //Set input text value to the input text
+        document.getElementById('input_text').value = speechToText;
+
+        recognition.stop();
+                                             }; //function onresult
+      //function if recognition failture
+      recognition.onerror = function(event) {
+        recognition.stop();
+                                            } 
+    }
+  } 
+
+</script>
+
+
+<!-- The html code for content -->
+<h1>AI Assistant</h1>
+
+<p>Designed by Zipei Wei & Samantha Kerkhoff</p>
+
+
+<div class="speech">
+    <input type="text" name="micro_input" id="input_text" placeholder="Speak" />
+    <img onclick="startDictation()" src="http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/256/Microphone-icon.png" />
+</div>
+<input type="button" onclick="submit_buttion()" class="button" value="Submit">
+
+
+<div class="Output">
+    <input type="text" name="neural_output" size="117" id="output_text" placeholder="Output ing..." />
+</div>
+
+</body>
+</html>
+
+

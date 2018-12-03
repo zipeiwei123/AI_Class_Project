@@ -1,30 +1,19 @@
 The project code and task specific are listed below:
 
+In AI_Project_Interface (Done by Zipei Wei):
+    Main.py: This file handles the communication between python to javascript/html that allow a two-way data processing. In order to communicate between pthon and javascript/html,  and due to the web security protocal, the html file is uploaded to a local server by using the flask web interface. To fully run this code without error, the code needed to be download and the flask framework need to be preinstall. This script allows data tranmission between train model, which written in python and sends back the results to the website interface. 
+    In templates/index.html:
+    This html contains all the infos regarding communication with main.py and the add-on speech recognition. The codes are included css for styling, javascript for event handling, speech recognition, and action initated to python scripts. This allows users to interact with the training model without any knowledge of programming. The users can either use microphone to ask question or simply input the question in the input box on the box. By doing this, we are able to built a user-friendly AI Assistant. To get more improved from that, the speech recognition can add the terminology according to you need. For instance, we can add dictionary according to the discussion topics (speech recognition on  bayes net, neural network or MDP). The code is written from scratch due to the topic specific for this project. 
 
+In neuralnet (Done by Samantha Kerkhoff):
 
+    preprocess.py - This takes in a text string and converts it into an array of words, whitespace, and punctuation.  
 
-
-
-
-
-
-
-
-
-The files in this directory are used to format a dataset, model a neural 
-network, and train the neural network model on that dataset.  The files 
-it contains are:
-
-preprocess.py - This takes in a text string and converts it into an array of
-words, whitespace, and punctuation.  This was written by Samantha Kerkhoff.
-
-rnn.py - This file builds the recurrent neural network model.  It takes the
-path of a dataset, pulls out the needed text, and formats it using
-preprocess.py.  It then trains the model on this data, printing out examples
-of the current state as it goes.  Finally, it gives the user an option to 
-enter in text and examine the type of output that is generated.  This file was 
-created by modifying an example provided by keras, which can be found here: 
+    rnn.py - This file builds the recurrent neural network model.  It takes the path of a dataset, pulls out the needed text, and formats it using preprocess.py.  It then trains the model on this data, printing out examples of the current state as it goes.  Finally, it gives the user an option to enter in text and examine the type of output that is generated.  This file was created by modifying an example provided by keras, which can be found here: 
 https://github.com/keras-team/keras/blob/master/examples/lstm_text_generation.py
+
+
+
 
 At the moment, we are using the Stack Exchange Data Dump provided by the 
 Stack Exchange network at this link https://archive.org/details/stackexchange

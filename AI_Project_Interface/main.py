@@ -1,3 +1,6 @@
+#__author__      = "Zipei Wei"
+#__copyright__   = "AI interface with speech recognition"
+
 #!flask/bin/python
 
 import sys
